@@ -1,4 +1,7 @@
-# vuex
+# Vuex examples with scss
+
+- Counter
+- API requests posting
 
 ## Project setup
 ```
