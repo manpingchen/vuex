@@ -8,7 +8,9 @@ const productsModule = {
   },
   mutations: {},
   actions: {},
-  getters: {},
+  getters: {
+    products: (state) => state,
+  },
 };
 
 export default productsModule;
