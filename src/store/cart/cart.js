@@ -52,8 +52,8 @@ const cartModule = {
   },
   getters: {
     cart: (state) => state,
-    cartItem: (state) => state.items,
-    cartQuautity: (state) => state.quantity,
+    cartItems: (state) => state.items,
+    cartQuantity: (state) => state.quantity,
     cartTotalPrice: (state) => state.totalPrice,
   },
 };
