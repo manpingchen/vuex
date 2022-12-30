@@ -1,6 +1,6 @@
 <template>
   <div class="counter">
-    <h1>{{ msg }}</h1>
+    <h1>{{ title }}</h1>
     <h2>{{ counter }}</h2>
     <div class="counter__panel">
       <button @click="increment">+</button>
@@ -15,7 +15,7 @@ import { mapGetters } from "vuex";
 export default {
   name: "VuexCounter",
   props: {
-    msg: String,
+    title: String,
   },
   computed: {
     ...mapGetters({
@@ -41,10 +41,10 @@ export default {
   justify-content: center;
   align-items: center;
   margin: 0 auto;
-  
+
   &__panel {
     display: flex;
-    gap: 10px;
+    gap: 1rem;
   }
 }
 </style>
