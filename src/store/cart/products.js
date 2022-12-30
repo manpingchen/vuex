@@ -10,6 +10,8 @@ const productsModule = {
   actions: {},
   getters: {
     products: (state) => state,
+    productById: (state) => (productId) => {
+        return state.find(({id}) => id === productId)}
   },
 };
 
