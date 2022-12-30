@@ -1,7 +1,8 @@
 # Vuex examples with scss
 
 - Counter
-- API requests posting
+- Shop
+- API requests
 
 ## Project setup
 ```
