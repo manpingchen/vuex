@@ -4,7 +4,9 @@
     <ul class="products__list">
       <li v-for="product in products" :key="product.id" class="products__item">
         <p class="name">{{ product.name }}</p>
-        <button>Add by {{ getPrice(product.price) }}</button>
+        <button @click="addToCart(product)">
+          Add by {{ getPrice(product.price) }}
+        </button>
       </li>
     </ul>
   </div>
@@ -23,6 +25,9 @@ export default {
   methods: {
     getPrice(value) {
       return "£" + value;
+    },
+    addToCart(product) {
+      this.$store.dispatch("cart/addToCart", { product });
     },
   },
 };
@@ -51,7 +56,7 @@ export default {
     border-radius: 0.5rem;
     padding: 0.5rem;
     gap: 0.5rem;
-    box-shadow: 0 0 0.5rem #ddd;
+    border: 5px solid honeydew;
 
     .name {
       font-weight: bold;

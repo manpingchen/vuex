@@ -44,6 +44,7 @@ const cartModule = {
   },
   actions: {
     addToCart({ commit }, payload) {
+      console.log(payload);
       commit("addProductToCart", payload);
     },
     removeFromCart({ commit }, payload) {
