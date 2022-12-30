@@ -4,7 +4,7 @@
     <ul class="products__list">
       <li v-for="product in products" :key="product.id" class="products__item">
         <p class="name">{{ product.name }}</p>
-        <button @click="addToCart(product)">
+        <button @click="addToCart(product.id)">
           Add by {{ getPrice(product.price) }}
         </button>
       </li>
@@ -26,8 +26,8 @@ export default {
     getPrice(value) {
       return "£" + value;
     },
-    addToCart(product) {
-      this.$store.dispatch("cart/addToCart", { product });
+    addToCart(id) {
+      this.$store.dispatch("cart/addToCart", { id });
     },
   },
 };

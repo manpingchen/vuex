@@ -43,9 +43,10 @@ const cartModule = {
     },
   },
   actions: {
-    addToCart({ commit }, payload) {
-      console.log(payload);
-      commit("addProductToCart", payload);
+    addToCart({ commit, rootGetters }, payload) {
+      const productId = payload.id;
+      const product = rootGetters['products/productById'](productId);
+      commit("addProductToCart", {product});
     },
     removeFromCart({ commit }, payload) {
       commit("removeProductFromCart", payload);
