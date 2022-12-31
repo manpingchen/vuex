@@ -1,6 +1,5 @@
 <template>
   <div class="products">
-    <h1>Shop</h1>
     <ul class="products__list">
       <li v-for="product in products" :key="product.id" class="products__item">
         <p class="name">{{ product.name }}</p>
@@ -16,7 +15,7 @@
 import { mapGetters } from "vuex";
 
 export default {
-  name: "VuexShop",
+  name: "VuexProducts",
   computed: {
     ...mapGetters({
       products: "products/products",
@@ -35,17 +34,15 @@ export default {
 
 <style lang="scss" scoped>
 .products {
-  width: 300px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  margin: 0 auto;
+  gap: 1rem;
 
   &__list {
     display: flex;
     flex-direction: row;
-    padding: 0;
     gap: 1rem;
   }
   &__item {
@@ -53,15 +50,11 @@ export default {
     display: flex;
     flex-direction: column;
     width: 100px;
-    border-radius: 0.5rem;
-    padding: 0.5rem;
     gap: 0.5rem;
-    border: 5px solid honeydew;
 
     .name {
       font-weight: bold;
       font-size: 1.2rem;
-      margin: 0;
     }
 
     button {
