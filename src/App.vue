@@ -1,23 +1,21 @@
 <template>
-  <h1>Vuex</h1>
-  <VuexCounter title="Counter" />
-  <VuexShop />
-  <VuexCart />
+  <NavBar />
+  <main>
+    <router-view> </router-view>
+  </main>
 </template>
 
 <script>
-import VuexCounter from "./components/Counter.vue";
-import VuexShop from "./components/Shop.vue";
-import VuexCart from "./components/Cart.vue";
-
+import NavBar from "@/components/NavBar.vue";
 export default {
   name: "App",
-  components: {
-    VuexCounter,
-    VuexShop,
-    VuexCart,
-  },
+  components: { NavBar },
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+main {
+  position: relative;
+  top: 5rem;
+}
+</style>

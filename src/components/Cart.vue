@@ -1,22 +1,38 @@
 <template>
-  <div class="cart">
-    <h4>Cart</h4>
-    <ul class="cart__list">
-      <li class="cart__item" v-for="item in cartItems" :key="item.id">
-        <p class="cart__item-summary">
-          <span class="quantity">({{ item.quantity }})</span>
-          <span class="name">{{ item.name }}</span>
-          <span class="price">{{ getPrice(item.price * item.quantity) }}</span>
-        </p>
-        <button class="btn__remove" @click="removeFromCart(item.id)">
-          Remove
-        </button>
-      </li>
-    </ul>
+  <div
+    class="cart"
+    :class="[{ popup: isPopup }, { empty: cartQuantity === 0 }]"
+  >
+    <div v-if="cartQuantity" class="cart__body">
+      <ul class="cart__list">
+        <li class="cart__item" v-for="item in cartItems" :key="item.id">
+          <p class="cart__item-summary">
+            <span class="quantity">({{ item.quantity }})</span>
+            <span class="name">{{ item.name }}</span>
+            <span class="price">{{
+              getPrice(item.price * item.quantity)
+            }}</span>
+          </p>
+          <button class="remove" @click="removeFromCart(item.id)">
+            Remove
+          </button>
+        </li>
+      </ul>
 
-    <p class="cart__quantity" v-if="cartQuantity">{{ cartQuantity }} items</p>
-    <p class="cart__empty" v-else>Your cart is empty</p>
-    <p class="cart__price">{{ getPrice(cartTotalPrice) }}</p>
+      <p class="cart__quantity">{{ cartQuantity }} items</p>
+      <p class="cart__price">{{ getPrice(cartTotalPrice) }}</p>
+    </div>
+
+    <p class="cart__empty cart__body" v-else>Your cart is empty</p>
+
+    <div class="cart__footer button-group" v-if="isPopup">
+      <button type="button" class="close-cart" @click="closeCartPopup">
+        Continue To Shop
+      </button>
+      <button type="button" class="view-cart" @click="goCartPage">
+        View Cart
+      </button>
+    </div>
   </div>
 </template>
 
@@ -32,6 +48,13 @@ export default {
       cartQuantity: "cart/cartQuantity",
     }),
   },
+  props: {
+    isPopup: {
+      default: true,
+      type: Boolean,
+    },
+  },
+  emits: ["toggleCartQuickView"],
   methods: {
     getPrice(value) {
       return "£" + value;
@@ -39,20 +62,35 @@ export default {
     removeFromCart(id) {
       this.$store.dispatch("cart/removeFromCart", { id });
     },
+    goCartPage() {
+      this.$emit("toggleCartQuickView");
+      this.$router.push("/cart");
+    },
+    closeCartPopup() {
+      this.$emit("toggleCartQuickView");
+      this.$router.push("/shop");
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .cart {
-  width: 300px;
-  margin: 0 auto;
-  border-radius: 0.5rem;
-  padding: 0.5rem;
-  background: honeydew;
+  width: 100%;
+  max-width: 600px;
 
-  h4 {
-    margin: 0.5rem 0.25rem;
+  &.popup {
+    width: 300px;
+    height: 300px;
+    border-radius: 0.5rem;
+    position: absolute;
+    right: 0.5rem;
+    top: 2rem;
+    background: white;
+    padding: 1rem;
+    box-shadow: 0 0 0.5rem gainsboro;
+    display: grid;
+    grid: 90% / 100%;
   }
 
   &__list {
@@ -60,19 +98,20 @@ export default {
     flex-direction: column;
     padding: 0;
     gap: 0.25rem;
+    height: 80%;
   }
+
   &__item {
     display: flex;
     justify-content: space-between;
     border-radius: 0.5rem;
     background: white;
-    padding: 0.5rem;
+    padding: 0.5rem 0;
   }
 
   &__item-summary {
-    width: 200px;
-    margin: 0;
     display: flex;
+    width: 80%;
 
     .name {
       padding-right: 0.25rem;
@@ -90,34 +129,47 @@ export default {
       text-align: right;
     }
   }
-  button {
-    border: 0;
-    background: none;
-    cursor: pointer;
-    color: gray;
-
-    &.btn__remove {
-      color: gainsboro;
-      &:hover {
-        color: black;
-      }
-    }
-  }
 
   &__empty {
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: gray;
+    width: 100%;
   }
 
   &__quantity {
     text-align: right;
-    margin: 0;
   }
 
   &__price {
     text-align: right;
     font-size: 1.5rem;
     margin-top: 0;
+  }
+
+  button {
+    display: inline-block;
+    width: 50%;
+    text-align: center;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    border: 0;
+    cursor: pointer;
+    
+    &.remove {
+      background: none;
+      padding: 0 0 0 0.5rem;
+      color: gainsboro;
+      width: initial;
+    }
+    &.view-cart {
+      background: gainsboro;
+    }
+    &.close-cart {
+      background: none;
+      border: 1px solid gainsboro;
+    }
   }
 }
 </style>
