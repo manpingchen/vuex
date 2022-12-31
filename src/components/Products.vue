@@ -11,17 +11,42 @@
           Add by {{ getPrice(product.price) }}
         </button>
 
-        <form @submit.prevent="submitFeedback">
+        <h4>See how other people say</h4>
+        <ul v-if="getFeedbacksByProductId(product.id)">
+          <li
+            v-for="feedback in getFeedbacksByProductId(product.id)"
+            :key="feedback?.id"
+            class="feedback"
+          >
+            <div class="feedback__rating">
+              <span
+                class="feedback__rating-dot"
+                v-for="i in feedback.rating"
+                :key="feedback.id + i"
+              >
+              </span>
+            </div>
+            <p>' {{ feedback.feedback }} '</p>
+          </li>
+        </ul>
+        <p class="no-data" v-else>No Review Yet!</p>
+
+        <h4>Tell us how you think</h4>
+        <form
+          @submit.prevent="submitFeedback(product.id)"
+          :ref="product.id + 'form'"
+        >
           <fieldset class="m_b-1">
-            <legend>Give it a rank</legend>
+            <legend>Give it a rating</legend>
             <div class="item" v-for="i in 5" :key="i">
               <input
                 type="radio"
-                :id="product.name + 'rate' + i"
+                :id="product.name + 'rating' + i"
                 :name="product.name"
+                v-model="product.rating"
                 :value="i"
               />
-              <label :for="product.name + 'rate' + i">{{ i }}</label>
+              <label :for="product.name + 'rating' + i">{{ i }}</label>
             </div>
           </fieldset>
 
@@ -31,11 +56,14 @@
           <textarea
             :id="product.name + 'feedback'"
             :name="product.name"
+            :ref="product.id + 'feedback'"
+            v-model="product.feedback"
             placeholder="I found this product is useful when..."
-          >
-          </textarea>
+          />
 
-          <button class="text">Share</button>
+          <button class="text" :disabled="!product.rating || !product.feedback">
+            Share
+          </button>
         </form>
       </li>
     </ul>
@@ -50,6 +78,7 @@ export default {
   computed: {
     ...mapGetters({
       products: "products/products",
+      feedbacks: "products/feedbacks",
     }),
   },
 
@@ -60,7 +89,25 @@ export default {
     addToCart(id) {
       this.$store.dispatch("cart/addToCart", { id });
     },
-    submitFeedback() {},
+    async submitFeedback(id) {
+      const response = await this.$store.dispatch(
+        "products/postProductFeedback",
+        {
+          id,
+        }
+      );
+      if (response) {
+        this.$refs[id + "feedback"][0].value = null;
+        this.$refs[id + "form"][0].reset();
+      }
+    },
+    getFeedbacksByProductId(id) {
+      return this.feedbacks[id];
+    },
+  },
+  mounted() {
+    this.$store.dispatch("products/fetchProducts");
+    this.$store.dispatch("products/fetchProductsFeedbacks");
   },
 };
 </script>
@@ -119,6 +166,25 @@ export default {
     button {
       &:hover {
         color: black;
+      }
+    }
+  }
+
+  .feedback {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+
+    &__rating {
+      display: flex;
+      gap: 0.25rem;
+      &-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: gold;
+        display: inline-block;
       }
     }
   }

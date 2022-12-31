@@ -8,17 +8,23 @@
         <li class="cart__item" v-for="item in cartItems" :key="item.id">
           <p class="cart__item-summary">
             <span class="quantity">({{ item.quantity }})</span>
-            <span class="name">{{ item.name }}</span>
+            <span class="name" :class="{ ellipsis: isPopup }">
+              {{ item.name }}
+            </span>
             <span class="price">{{
               getPrice(item.price * item.quantity)
             }}</span>
           </p>
-          <button class="text" @click="removeFromCart(item.id)">Remove</button>
+          <button class="text remove" @click="removeFromCart(item.id)">
+            Remove
+          </button>
         </li>
       </ul>
 
-      <p class="cart__quantity">{{ cartQuantity }} items</p>
-      <p class="cart__price">{{ getPrice(cartTotalPrice) }}</p>
+      <p class="cart__price">
+        <span class="cart__quantity">({{ cartQuantity }} items)</span>
+        {{ getPrice(cartTotalPrice) }}
+      </p>
     </div>
 
     <p class="cart__empty cart__body" v-else>Your cart is empty</p>
@@ -77,6 +83,12 @@ export default {
   width: 100%;
   max-width: 600px;
 
+  &__body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
   &.popup {
     width: 300px;
     height: 300px;
@@ -89,6 +101,11 @@ export default {
     box-shadow: 0 0 0.5rem gainsboro;
     display: grid;
     grid: 1fr / 100%;
+    gap: 1rem;
+
+    .name {
+      font-size: 0.875rem;
+    }
   }
 
   &__list {
@@ -111,20 +128,19 @@ export default {
     display: flex;
     align-items: center;
     width: 80%;
+    gap: 0.25rem;
+    padding-right: 0.25rem;
 
     .name {
-      padding-right: 0.25rem;
-      width: 60%;
+      width: inherit;
     }
 
     .quantity {
-      padding-left: 0.5rem;
-      padding-right: 0.25rem;
-      width: 20%;
+      width: 40px;
     }
 
     .price {
-      width: 20%;
+      width: 100px;
       text-align: right;
     }
   }
@@ -139,18 +155,28 @@ export default {
 
   &__quantity {
     text-align: right;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-style: italic;
+    color: gray;
   }
 
   &__price {
     text-align: right;
     font-size: 1.5rem;
     margin-top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
   }
 
   button {
     display: inline-block;
     width: 50%;
     font-size: 0.875rem;
+    &.remove {
+      color: gainsboro;
+    }
   }
 }
 </style>
