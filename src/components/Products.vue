@@ -3,7 +3,7 @@
     <ul class="products__list">
       <li v-for="product in products" :key="product.id" class="products__item">
         <p class="name">{{ product.name }}</p>
-        <button @click="addToCart(product.id)">
+        <button @click="addToCart(product.id)" class="outlined">
           Add by {{ getPrice(product.price) }}
         </button>
       </li>
@@ -49,7 +49,7 @@ export default {
     list-style: none;
     display: flex;
     flex-direction: column;
-    width: 100px;
+    width: 200px;
     gap: 0.5rem;
 
     .name {
@@ -58,10 +58,6 @@ export default {
     }
 
     button {
-      border: 0;
-      background: none;
-      cursor: pointer;
-      color: gray;
       &:hover {
         color: black;
       }

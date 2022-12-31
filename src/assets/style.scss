@@ -18,3 +18,25 @@ a {
     flex-direction: column;
   }
 }
+
+button {
+  line-height: 1.5rem;
+  cursor: pointer;
+  text-align: center;
+
+  &.text {
+    border: 0;
+    background: none;
+    padding: 0 !important;
+  }
+  &.outlined {
+    border: 1px solid gainsboro;
+    background: none;
+    border-radius: 0.25rem;
+  }
+  &.contained {
+    border: 0;
+    background: gainsboro;
+    border-radius: 0.25rem;
+  }
+}

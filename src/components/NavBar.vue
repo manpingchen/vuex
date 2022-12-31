@@ -72,7 +72,6 @@ nav {
     position: relative;
 
     > li {
-      color: gainsboro;
       cursor: pointer;
       padding: 0 0.5rem;
 
@@ -80,7 +79,7 @@ nav {
       a {
         text-decoration: none;
         font-size: 1.2rem;
-        color: gainsboro;
+        color: gray;
         &.active {
           color: black;
         }

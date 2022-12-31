@@ -13,9 +13,7 @@
               getPrice(item.price * item.quantity)
             }}</span>
           </p>
-          <button class="remove" @click="removeFromCart(item.id)">
-            Remove
-          </button>
+          <button class="text" @click="removeFromCart(item.id)">Remove</button>
         </li>
       </ul>
 
@@ -26,10 +24,10 @@
     <p class="cart__empty cart__body" v-else>Your cart is empty</p>
 
     <div class="cart__footer button-group" v-if="isPopup">
-      <button type="button" class="close-cart" @click="closeCartPopup">
+      <button type="button " class="outlined" @click="closeCartPopup">
         Continue To Shop
       </button>
-      <button type="button" class="view-cart" @click="goCartPage">
+      <button type="button " class="contained" @click="goCartPage">
         View Cart
       </button>
     </div>
@@ -90,7 +88,7 @@ export default {
     padding: 1rem;
     box-shadow: 0 0 0.5rem gainsboro;
     display: grid;
-    grid: 90% / 100%;
+    grid: 1fr / 100%;
   }
 
   &__list {
@@ -111,6 +109,7 @@ export default {
 
   &__item-summary {
     display: flex;
+    align-items: center;
     width: 80%;
 
     .name {
@@ -151,25 +150,7 @@ export default {
   button {
     display: inline-block;
     width: 50%;
-    text-align: center;
-    border-radius: 0.25rem;
     padding: 0.5rem;
-    border: 0;
-    cursor: pointer;
-    
-    &.remove {
-      background: none;
-      padding: 0 0 0 0.5rem;
-      color: gainsboro;
-      width: initial;
-    }
-    &.view-cart {
-      background: gainsboro;
-    }
-    &.close-cart {
-      background: none;
-      border: 1px solid gainsboro;
-    }
   }
 }
 </style>

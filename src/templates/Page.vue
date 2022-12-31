@@ -14,6 +14,7 @@ export default {
 .page {
   padding: 1rem;
   &__title {
+    margin-bottom: 2rem;
   }
 }
 </style>
