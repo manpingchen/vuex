@@ -4,6 +4,8 @@
 - Shop
 - API requests from firebase
 
+![image](<img width="923" alt="image" src="https://user-images.githubusercontent.com/10693128/210141521-f5ed3e91-6bc5-4cd1-903c-ce949a37967f.png">)
+
 ## Alternatives: RootGetters
 ### Version 1: without RootGetters
 shop.vue - pass the `object` of a product
