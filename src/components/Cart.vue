@@ -150,7 +150,7 @@ export default {
   button {
     display: inline-block;
     width: 50%;
-    padding: 0.5rem;
+    font-size: 0.875rem;
   }
 }
 </style>
