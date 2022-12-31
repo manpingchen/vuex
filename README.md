@@ -1,12 +1,14 @@
-# Vuex examples with scss
+# Vuex examples with scss 
 
 - Counter
 - Product List
 - API requests from firebase
 
-![image](<img width="923" alt="image" src="https://user-images.githubusercontent.com/10693128/210141521-f5ed3e91-6bc5-4cd1-903c-ce949a37967f.png">)
+## :information_desk_person: Preview
+<img width="954" alt="image" src="https://user-images.githubusercontent.com/10693128/210148771-4ab2a822-d815-45ac-a9d9-5c5c238f27a9.png">
 
-## Alternatives: RootGetters
+
+## :dash: Alternatives: RootGetters
 ### Version 1: without RootGetters
 shop.vue - pass the `object` of a product
 ``` javascript 
