@@ -2,7 +2,7 @@
 
 - Counter
 - Shop
-- API requests
+- API requests from firebase
 
 ## Alternatives: RootGetters
 ### Version 1: without RootGetters
